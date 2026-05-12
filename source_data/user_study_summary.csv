@@ -1,0 +1,5 @@
+metric,contextgs_mean,contextgs_sd,hggs_mean,hggs_sd,holm_adjusted_p
+realism,4.12,0.55,4.28,0.50,0.094
+detail_inspectability,3.74,0.64,4.36,0.47,<0.001
+smoothness,3.82,0.58,4.38,0.49,0.002
+overall_preference,3.89,0.61,4.31,0.52,0.006

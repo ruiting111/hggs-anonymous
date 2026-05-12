@@ -1,0 +1,4 @@
+method,baseline_s_psnr,semantic_augmented_s_psnr,note
+RDO-Gaussian near-70MB,27.86,28.18,semantic-weighted distortion
+ContextGS near-70MB,28.05,28.62,semantic recovery
+HG-GS near-70MB,,29.18,primitive-level pruning precision recovery and LOD
