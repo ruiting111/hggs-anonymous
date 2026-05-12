@@ -89,6 +89,7 @@ class Evidence:
     visibility: np.ndarray
     coverage: Optional[np.ndarray] = None
     projected_area: Optional[np.ndarray] = None
+    overlap: Optional[np.ndarray] = None
     semantic_label: Optional[np.ndarray] = None
 
     def __post_init__(self) -> None:
@@ -103,7 +104,7 @@ class Evidence:
             if arr.shape[0] != n:
                 raise ValueError(f"{name} must have length {n}, got {arr.shape[0]}")
             object.__setattr__(self, name, arr)
-        for optional_name in ("coverage", "projected_area"):
+        for optional_name in ("coverage", "projected_area", "overlap"):
             value = getattr(self, optional_name)
             if value is not None:
                 arr = _as_float32(optional_name, value, 1)
@@ -135,6 +136,7 @@ class Evidence:
             visibility=mapping["visibility"],
             coverage=mapping.get("coverage"),
             projected_area=mapping.get("projected_area"),
+            overlap=mapping.get("overlap"),
             semantic_label=mapping.get("semantic_label"),
         )
 
@@ -149,7 +151,8 @@ class Evidence:
             out["coverage"] = self.coverage
         if self.projected_area is not None:
             out["projected_area"] = self.projected_area
+        if self.overlap is not None:
+            out["overlap"] = self.overlap
         if self.semantic_label is not None:
             out["semantic_label"] = self.semantic_label
         return out
-

@@ -23,9 +23,9 @@ format is compressed NumPy NPZ because it is easy to inspect and deterministic.
 | `visibility` | `(N,)` | Visible view count or normalized visibility |
 | `coverage` | `(N,)` | Optional foreground coverage contribution for base-layer selection |
 | `projected_area` | `(N,)` | Optional average projected splat area |
+| `overlap` | `(N,)` | Optional local projected-overlap or redundancy evidence for pruning |
 | `semantic_label` | `(N,)` | Optional annotation label inherited by each Gaussian |
 
 The manuscript computes `visual_detail` and `mask` as contribution-normalized
 expectations over projected splat supports. If only per-Gaussian summaries are
 available, export them directly with the same semantics.
-

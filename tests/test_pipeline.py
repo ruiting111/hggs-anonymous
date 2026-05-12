@@ -25,6 +25,7 @@ def synthetic_model(n: int = 256) -> tuple[GaussianModel, Evidence]:
         visibility=rng.integers(1, 20, size=n).astype(np.float32),
         coverage=rng.random(n).astype(np.float32),
         projected_area=rng.uniform(0.5, 12.0, size=n).astype(np.float32),
+        overlap=rng.random(n).astype(np.float32),
         semantic_label=semantic,
     )
     model = GaussianModel(position, scale, rotation, opacity, color)
@@ -68,3 +69,22 @@ def test_scheduler_returns_hierarchical_layers() -> None:
     assert result["active_counts"].shape == (4,)
     assert np.all(result["active_layers"] >= 0)
 
+
+def test_scheduler_can_activate_semantic_layer_without_geometry_layer() -> None:
+    layer = np.array([0, 1, 2], dtype=np.int32)
+    score = np.array([0.2, 0.1, 1.0], dtype=np.float32)
+    semantic = np.array([False, False, True])
+    frames = np.array([[10.0, 10.0, 10.0]], dtype=np.float32)
+    cost = np.array([0.001, 20.0, 0.001], dtype=np.float32)
+    result = simulate_scheduler(
+        layer=layer,
+        score=score,
+        semantic_label=semantic,
+        projected_radius_frames=frames,
+        per_gaussian_cost_ms=cost,
+        resident_memory_mb={0: 1.0, 1: 1.0, 2: 1.0},
+        free_memory_mb=8.0,
+        config=SchedulerConfig(),
+    )
+    assert result["active_layers"][0] == 2
+    assert result["active_counts"][0] == 2

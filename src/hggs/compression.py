@@ -92,7 +92,17 @@ def prune_to_budget(
         + config.semantic_floor_weight * score * visibility_norm
     )
     saved_rate = per_gaussian_bytes
-    keep_priority = removal_damage / (saved_rate + 1e-8)
+    overlap = (
+        np.asarray(evidence.overlap, dtype=np.float32)
+        if evidence.overlap is not None
+        else np.zeros(n, dtype=np.float32)
+    )
+    overlap_norm = overlap / (np.percentile(overlap, 95) + 1e-8)
+    keep_priority = (
+        removal_damage / (saved_rate + 1e-8)
+        - config.overlap_weight * np.clip(overlap_norm, 0.0, 1.0)
+        - config.invisibility_weight * (1.0 - visibility_norm)
+    )
 
     # Retain high-priority Gaussians until the estimated medium-precision budget is met.
     order = np.argsort(-keep_priority)
@@ -222,4 +232,3 @@ def _renormalize_quaternions(rotation: np.ndarray) -> np.ndarray:
     rotation *= sign
     norm = np.linalg.norm(rotation, axis=1, keepdims=True)
     return (rotation / (norm + 1e-8)).astype(np.float32)
-

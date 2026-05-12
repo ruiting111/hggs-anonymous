@@ -49,7 +49,7 @@ def choose_active_layers(
     if budget <= 0:
         return [0]
     previous = set(previously_active)
-    candidates = [[0], [0, 1], [0, 1, 2]]
+    candidates = [[0], [0, 1], [0, 2], [0, 1, 2]]
     best_layers = [0]
     best_utility = -np.inf
     for layers in candidates:
@@ -135,4 +135,3 @@ def _layer_utility(
     )
     switch_penalty = config.hysteresis_weight * len(layers.symmetric_difference(previous))
     return float(np.sum(priority[active]) / (np.sum(per_gaussian_cost_ms[active]) + 1e-8) - switch_penalty)
-

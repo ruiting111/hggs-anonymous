@@ -98,18 +98,19 @@ views:
 - `visibility`: `(N,)` visible-view counts or normalized visibility
 - optional `coverage`: `(N,)` foreground coverage contribution
 - optional `projected_area`: `(N,)` average projected splat area
+- optional `overlap`: `(N,)` local projected-overlap or redundancy evidence
 - optional `semantic_label`: `(N,)` boolean or integer annotation labels
 
 If your renderer exports per-pixel splat ownership, use it to compute these
 arrays before running this package. The package also contains a normalized
 aggregation helper for per-Gaussian evidence arrays.
 
-## Notes for Scientific Reports submission
+## Notes for journal submission
 
 Before submission, add a release archive or DOI and update the manuscript with:
 
 - repository URL and commit hash;
 - license;
 - data-access conditions for restricted original artifact images;
-- exact ethics approval or waiver information for the user study.
-
+- exact ethics approval or waiver information for any human-subject study, if
+  applicable.
