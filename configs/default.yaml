@@ -1,0 +1,36 @@
+importance:
+  lambda_visual: 0.25
+  lambda_mask: 0.50
+  lambda_contribution: 0.25
+  robust_low_percentile: 5
+  robust_high_percentile: 95
+  neighborhood_weight: 0.20
+  neighborhood_radius_scale: 3.0
+compression:
+  semantic_loss_weight: 2.0
+  semantic_floor_weight: 0.15
+  overlap_weight: 0.30
+  invisibility_weight: 0.20
+  size_tolerance_mb: 0.002
+  precision_lambda: 0.02
+  precision_semantic_boost: 1.0
+  precision_groups:
+    low_bits: 8
+    medium_bits: 12
+    high_bits: 16
+lod:
+  base_coverage: 0.95
+  semantic_threshold: 0.70
+scheduler:
+  target_frame_ms: 16.67
+  tracking_ms: 3.10
+  camera_ms: 2.40
+  compose_ms: 0.00
+  safety_margin_ms: 1.50
+  beta_semantic: 0.45
+  beta_radius: 0.25
+  beta_label: 0.20
+  beta_cost: 0.10
+  hysteresis_weight: 0.15
+  radius_norm_px: 8.0
+  activation_radius_px: 4.0

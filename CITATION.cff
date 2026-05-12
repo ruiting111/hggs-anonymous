@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use HG-GS, please cite the associated manuscript."
+title: "HG-GS: annotation-guided 3D Gaussian compression"
+authors:
+  - family-names: "Anonymous"
+    given-names: "Authors"
+version: 0.1.0
+date-released: 2026-05-12
